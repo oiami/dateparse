@@ -741,6 +741,11 @@ func TestPreferMonthFirst(t *testing.T) {
 	ts, err = ParseAny("04/02/2014 04:08:09 +0000 UTC", preferMonthFirstFalse)
 	assert.Equal(t, nil, err)
 	assert.Equal(t, "2014-02-04 04:08:09 +0000 UTC", fmt.Sprintf("%v", ts.In(time.UTC)))
+
+	// allow the day to be preferred when the format is dd.MM.yyyy
+	ts, err = ParseAny("21.01.2023", preferMonthFirstFalse)
+	assert.Equal(t, nil, err)
+	assert.Equal(t, "2023-01-21 00:00:00 +0000 UTC", fmt.Sprintf("%v", ts.In(time.UTC)))
 }
 
 func TestRetryAmbiguousDateWithSwap(t *testing.T) {

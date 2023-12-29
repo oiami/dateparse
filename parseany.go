@@ -365,6 +365,7 @@ iterRunes:
 				// 3.31.2014
 				// 08.21.71
 				// 2014.05
+				// 21.01.2023
 				p.stateDate = dateDigitDot
 				if i == 4 {
 					p.yearlen = i
@@ -372,10 +373,18 @@ iterRunes:
 					p.setYear()
 				} else {
 					p.ambiguousMD = true
-					p.moi = 0
-					p.molen = i
-					p.setMonth()
-					p.dayi = i + 1
+					if p.preferMonthFirst {
+						// 02.14.2022
+						p.moi = 0
+						p.molen = i
+						p.setMonth()
+						p.dayi = i + 1
+					} else {
+						// 21.01.2023
+						p.dayi = 0
+						p.daylen = i
+						p.setDay()
+					}
 				}
 
 			case ' ':
